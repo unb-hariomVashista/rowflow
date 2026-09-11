@@ -1,3 +1,14 @@
+# Changelog
+
+## [1.0.0] - 2026-09-11
+
+### Features & Capabilities
+- **Bi-Directional Sync (Shopify ↔ Google Sheets)**: Complete export and import workflow supporting product titles, handles, status, variant prices, SKUs, and inventory quantities.
+- **2-Tier Hash Diffing Engine**: Tier-1 full-sheet SHA-256 hash validation (~5ms execution time for unchanged sheets) and Tier-2 targeted GraphQL bulk updates (`productUpdate` and `productVariantsBulkUpdate`).
+- **Google Account & Drive Sheet Integration**: OAuth 2.0 connection management, sheet creation with pre-formatted headers, and single-click sheet selection/disconnection.
+- **Interactive Sync Dashboard**: Tabbed Export/Import manager with live progress indicators and persistent audit logs tracking sync history, status, and item counts.
+- **Subscription Billing Tiers**: Four tiers (Free, Starter, Pro, Unlimited) with automated catalog limits and quota checking.
+
 # @shopify/shopify-app-template-react-router
 
 ## 2026.09.03
