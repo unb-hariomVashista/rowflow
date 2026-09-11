@@ -1,0 +1,112 @@
+/* Sync Page Sidebar Cards */
+.rowflow-side-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 20px;
+  margin-bottom: 16px;
+  box-shadow: 0 4px 14px -2px rgba(0, 0, 0, 0.03);
+}
+
+.rowflow-side-card-header {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  margin-bottom: 16px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.rowflow-side-card-header h3 {
+  margin: 0 0 12px 0;
+  font-size: 16px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.rowflow-meta-list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.rowflow-meta-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 12px;
+}
+
+.rowflow-meta-label {
+  color: #64748b;
+  font-weight: 500;
+}
+
+.rowflow-meta-val {
+  color: #0f172a;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.rowflow-callout-card {
+  border-radius: 16px;
+  padding: 18px;
+  margin-bottom: 16px;
+}
+
+.rowflow-callout-card.green {
+  background: #f0fdf4;
+  border: 1px solid #bbf7d0;
+}
+
+.rowflow-callout-card.blue {
+  background: #eff6ff;
+  border: 1px solid #bfdbfe;
+}
+
+.rowflow-callout-title {
+  font-size: 13px;
+  font-weight: 700;
+  color: #0f172a;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+.rowflow-bullet-list {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 12px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.rowflow-bullet-item {
+  font-size: 12px;
+  color: #334155;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  line-height: 1.4;
+}
+
+.rowflow-bullet-check {
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: #10b981;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+
+.rowflow-callout-card.blue .rowflow-bullet-check {
+  background: #2563eb;
+}

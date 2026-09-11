@@ -1,0 +1,38 @@
+/* Sync Progress & Alert Banner Styles */
+.rowflow-progress-banner {
+  background: linear-gradient(90deg, #eff6ff 0%, #dbeafe 100%);
+  border: 1px solid #60a5fa;
+  color: #1e40af;
+  padding: 14px 20px;
+  border-radius: 14px;
+  margin-bottom: 20px;
+  font-weight: 600;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 4px 12px rgba(37, 99, 235, 0.08);
+}
+
+.rowflow-alert-banner {
+  padding: 14px 18px;
+  border-radius: 14px;
+  margin-bottom: 20px;
+  font-weight: 600;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.rowflow-alert-banner.success {
+  background: #ecfdf5;
+  border: 1px solid #10b981;
+  color: #065f46;
+}
+
+.rowflow-alert-banner.error {
+  background: #fef2f2;
+  border: 1px solid #ef4444;
+  color: #991b1b;
+}

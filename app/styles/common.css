@@ -1,0 +1,21 @@
+/* Common Design Tokens & Utility Classes for Rowflow */
+@import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600&family=Inter:wght@400;500;600;700;800&display=swap');
+
+.rowflow-container {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  max-width: 1080px;
+  margin: 0 auto;
+  padding: 24px 20px 48px;
+  color: #111827;
+  box-sizing: border-box;
+}
+
+@keyframes rowflowSpin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.rowflow-spin {
+  animation: rowflowSpin 0.9s linear infinite;
+  transform-origin: center;
+}

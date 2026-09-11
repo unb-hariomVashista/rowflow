@@ -1,0 +1,54 @@
+/* Benefit Grid Styles */
+.rowflow-benefits-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+}
+
+.rowflow-benefit-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 20px 22px;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.rowflow-benefit-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px -2px rgba(0, 0, 0, 0.04);
+}
+
+.rowflow-benefit-badge {
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.rowflow-benefit-badge.green { background: #e6f4ea; color: #137333; }
+.rowflow-benefit-badge.purple { background: #f3e8ff; color: #7c3aed; }
+.rowflow-benefit-badge.red { background: #fce8e6; color: #c5221f; }
+
+.rowflow-benefit-info h3 {
+  margin: 0 0 4px 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.rowflow-benefit-info p {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.45;
+  color: #64748b;
+}
+
+@media (max-width: 860px) {
+  .rowflow-benefits-grid { grid-template-columns: 1fr; }
+}

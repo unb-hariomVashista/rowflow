@@ -1,0 +1,223 @@
+/* Unauthenticated & Authenticated Hero Banners */
+.rowflow-hero {
+  background: linear-gradient(135deg, #edf4ff 0%, #f4f8fe 50%, #ebf3ff 100%);
+  border: 1px solid #d4e3fc;
+  border-radius: 20px;
+  padding: 36px 40px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  box-shadow: 0 4px 20px -2px rgba(26, 115, 232, 0.05);
+  position: relative;
+  overflow: hidden;
+}
+
+.rowflow-hero-auth {
+  background: linear-gradient(135deg, #e6f7f0 0%, #f0faf5 50%, #e1f5eb 100%);
+  border: 1px solid #ccebdc;
+  border-radius: 20px;
+  padding: 36px 40px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 32px;
+  box-shadow: 0 4px 20px -2px rgba(16, 185, 129, 0.05);
+  position: relative;
+  overflow: hidden;
+}
+
+.rowflow-hero-content {
+  flex: 1;
+  max-width: 580px;
+}
+
+.rowflow-app-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 14px;
+}
+
+.rowflow-badge-icon {
+  width: 28px;
+  height: 28px;
+  background: #1a73e8;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 14px;
+  box-shadow: 0 2px 6px rgba(26, 115, 232, 0.25);
+}
+
+.rowflow-app-name {
+  font-weight: 700;
+  font-size: 16px;
+  color: #111827;
+}
+
+.rowflow-tag-text {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: #4b5563;
+  text-transform: uppercase;
+  background: rgba(255, 255, 255, 0.7);
+  border: 1px solid #d1e2fc;
+  padding: 3px 8px;
+  border-radius: 12px;
+  margin-left: 4px;
+}
+
+.rowflow-tag-text.green {
+  border-color: #a7f3d0;
+  color: #065f46;
+}
+
+.rowflow-hero-title {
+  font-size: 34px;
+  font-weight: 800;
+  line-height: 1.15;
+  color: #0f172a;
+  margin: 0 0 12px 0;
+  letter-spacing: -0.02em;
+}
+
+.rowflow-hero-desc {
+  font-size: 15px;
+  line-height: 1.55;
+  color: #475569;
+  margin: 0 0 28px 0;
+}
+
+.rowflow-features-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.rowflow-feature-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  flex: 1;
+  min-width: 150px;
+}
+
+.rowflow-feature-icon {
+  width: 32px;
+  height: 32px;
+  border-radius: 10px;
+  background: #e0edff;
+  color: #1a73e8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.rowflow-feature-text h4 {
+  margin: 0 0 2px 0;
+  font-size: 13px;
+  font-weight: 700;
+  color: #1e293b;
+}
+
+.rowflow-feature-text p {
+  margin: 0;
+  font-size: 12px;
+  line-height: 1.35;
+  color: #64748b;
+}
+
+/* Right Graphic Illustration */
+.rowflow-hero-graphic {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-left: 16px;
+}
+
+.rowflow-diagram {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(8px);
+  padding: 16px 24px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  box-shadow: 0 8px 24px -4px rgba(26, 115, 232, 0.08);
+}
+
+.rowflow-logo-box {
+  width: 60px;
+  height: 60px;
+  border-radius: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+}
+
+.rowflow-logo-box.shopify {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+}
+
+.rowflow-logo-box.sheets {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+}
+
+.rowflow-link-badge {
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: #eef5ff;
+  border: 2px solid #ffffff;
+  color: #1a73e8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 8px rgba(26, 115, 232, 0.15);
+}
+
+.rowflow-link-badge.green {
+  background: #e6f4ea;
+  color: #10b981;
+}
+
+.rowflow-doodle-note {
+  margin-top: 14px;
+  font-family: 'Caveat', cursive;
+  font-size: 22px;
+  color: #1e293b;
+  transform: rotate(-3deg);
+  text-align: center;
+  position: relative;
+}
+
+.rowflow-underline-svg {
+  display: block;
+  margin: 2px auto 0;
+  width: 110px;
+  height: 8px;
+}
+
+@media (max-width: 860px) {
+  .rowflow-hero, .rowflow-hero-auth {
+    flex-direction: column;
+    text-align: center;
+    padding: 28px 24px;
+  }
+  .rowflow-hero-content { max-width: 100%; }
+  .rowflow-features-row { justify-content: center; }
+}

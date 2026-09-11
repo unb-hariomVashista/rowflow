@@ -1,0 +1,16 @@
+-- AlterTable
+ALTER TABLE "Shop" ADD COLUMN "lastSyncedAt" DATETIME;
+ALTER TABLE "Shop" ADD COLUMN "sheetId" TEXT;
+ALTER TABLE "Shop" ADD COLUMN "sheetUrl" TEXT;
+
+-- CreateTable
+CREATE TABLE "SyncLog" (
+    "id" TEXT NOT NULL PRIMARY KEY,
+    "shopId" TEXT NOT NULL,
+    "type" TEXT NOT NULL,
+    "status" TEXT NOT NULL,
+    "details" TEXT NOT NULL,
+    "itemCount" INTEGER NOT NULL DEFAULT 0,
+    "createdAt" DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    CONSTRAINT "SyncLog_shopId_fkey" FOREIGN KEY ("shopId") REFERENCES "Shop" ("id") ON DELETE CASCADE ON UPDATE CASCADE
+);

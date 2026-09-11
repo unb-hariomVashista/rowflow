@@ -1,0 +1,38 @@
+/* Sync Hero Card Styles */
+.rowflow-breadcrumb {
+  font-size: 12px;
+  color: #64748b;
+  margin-bottom: 8px;
+  font-weight: 500;
+}
+
+.rowflow-sync-hero-card {
+  background: linear-gradient(135deg, #e6f7f0 0%, #f4fbf7 60%, #e1f5eb 100%);
+  border: 1px solid #ccebdc;
+  border-radius: 20px;
+  padding: 28px 36px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+.rowflow-sync-hero-card.import-theme {
+  background: linear-gradient(135deg, #eff6ff 0%, #f8fafc 60%, #e0f2fe 100%);
+  border-color: #bfdbfe;
+}
+
+.rowflow-sync-hero-title {
+  font-size: 32px;
+  font-weight: 800;
+  color: #0f172a;
+  margin: 0 0 6px 0;
+  letter-spacing: -0.02em;
+}
+
+.rowflow-sync-hero-sub {
+  font-size: 14px;
+  color: #475569;
+  margin: 0;
+}

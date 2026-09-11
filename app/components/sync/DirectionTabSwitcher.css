@@ -1,0 +1,74 @@
+/* Top 2 Direction Tabs Switcher */
+.rowflow-direction-tabs {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  margin-bottom: 24px;
+}
+
+.rowflow-dir-tab {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 16px;
+  padding: 18px 24px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: left;
+}
+
+.rowflow-dir-tab:hover {
+  background: #ffffff;
+  border-color: #cbd5e1;
+}
+
+.rowflow-dir-tab.active-export {
+  background: #ffffff;
+  border: 2px solid #10b981;
+  box-shadow: 0 4px 16px -2px rgba(16, 185, 129, 0.12);
+}
+
+.rowflow-dir-tab.active-import {
+  background: #ffffff;
+  border: 2px solid #2563eb;
+  box-shadow: 0 4px 16px -2px rgba(37, 99, 235, 0.12);
+}
+
+.rowflow-dir-tab-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.rowflow-dir-tab-icon.export {
+  background: #dcfce7;
+  color: #10b981;
+}
+
+.rowflow-dir-tab-icon.import {
+  background: #dbeafe;
+  color: #2563eb;
+}
+
+.rowflow-dir-tab-info h4 {
+  margin: 0 0 2px 0;
+  font-size: 16px;
+  font-weight: 700;
+  color: #0f172a;
+}
+
+.rowflow-dir-tab-info p {
+  margin: 0;
+  font-size: 12px;
+  color: #64748b;
+}
+
+@media (max-width: 860px) {
+  .rowflow-direction-tabs { grid-template-columns: 1fr; }
+}

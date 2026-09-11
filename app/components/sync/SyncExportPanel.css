@@ -1,0 +1,137 @@
+/* Sync Main Grid Layout & Export/Import Control Panels */
+.rowflow-sync-main-grid {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+.rowflow-sync-control-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 20px;
+  padding: 32px;
+  box-shadow: 0 4px 16px -2px rgba(0, 0, 0, 0.03);
+}
+
+.rowflow-control-title-row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  margin-bottom: 24px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.rowflow-control-title-row h2 {
+  margin: 0 0 4px 0;
+  font-size: 20px;
+  font-weight: 800;
+  color: #0f172a;
+}
+
+.rowflow-control-title-row p {
+  margin: 0;
+  font-size: 13px;
+  color: #64748b;
+}
+
+.rowflow-section-label {
+  font-size: 14px;
+  font-weight: 700;
+  color: #0f172a;
+  margin: 0 0 4px 0;
+}
+
+.rowflow-section-sub {
+  font-size: 12px;
+  color: #64748b;
+  margin: 0 0 16px 0;
+}
+
+.rowflow-field-group {
+  margin-bottom: 20px;
+}
+
+.rowflow-field-group label {
+  display: block;
+  font-size: 12px;
+  font-weight: 700;
+  color: #334155;
+  margin-bottom: 6px;
+}
+
+.rowflow-select-input {
+  width: 100%;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid #cbd5e1;
+  background: #ffffff;
+  font-size: 13px;
+  color: #0f172a;
+  outline: none;
+  transition: border-color 0.15s ease;
+}
+
+.rowflow-select-input:focus {
+  border-color: #10b981;
+}
+
+.rowflow-options-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+}
+
+.rowflow-action-bar {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-top: 32px;
+  padding-top: 24px;
+  border-top: 1px solid #f1f5f9;
+}
+
+.rowflow-btn-primary-action {
+  border: none;
+  color: #ffffff;
+  padding: 13px 28px;
+  border-radius: 10px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+}
+
+.rowflow-btn-primary-action.export-btn {
+  background: #059669;
+}
+.rowflow-btn-primary-action.export-btn:hover {
+  background: #047857;
+  transform: translateY(-1px);
+}
+
+.rowflow-btn-primary-action.import-btn {
+  background: #1a73e8;
+}
+.rowflow-btn-primary-action.import-btn:hover {
+  background: #1557b0;
+  transform: translateY(-1px);
+}
+
+.rowflow-estimate-text {
+  font-size: 12px;
+  color: #64748b;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+@media (max-width: 860px) {
+  .rowflow-sync-main-grid { grid-template-columns: 1fr !important; }
+  .rowflow-options-grid { grid-template-columns: 1fr; }
+}
