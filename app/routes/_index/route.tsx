@@ -7,7 +7,11 @@ import styles from "./styles.module.css";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const url = new URL(request.url);
-  return redirect(`/app${url.search}`);
+  const shop = url.searchParams.get("shop");
+  if (shop) {
+    return redirect(`/app${url.search}`);
+  }
+  return redirect("/auth/login");
 };
 
 export default function App() {
