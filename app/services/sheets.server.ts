@@ -70,10 +70,44 @@ export async function createSpreadsheet(
   // Format headers for Products tab
   await formatSheetHeaders(accessToken, data.spreadsheetId);
 
+  // Set permission: Anyone with link - Editor
+  await setSheetPublicEditorPermission(accessToken, data.spreadsheetId);
+
   return {
     spreadsheetId: data.spreadsheetId,
     spreadsheetUrl: data.spreadsheetUrl,
   };
+}
+
+/**
+ * Sets permission of a Google Sheet / Drive File to "Anyone with link - Editor"
+ */
+export async function setSheetPublicEditorPermission(
+  accessToken: string,
+  fileId: string,
+): Promise<void> {
+  const permissionUrl = `https://www.googleapis.com/drive/v3/files/${fileId}/permissions`;
+
+  try {
+    const response = await fetch(permissionUrl, {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        role: "writer",
+        type: "anyone",
+      }),
+    });
+
+    if (!response.ok) {
+      const errorText = await response.text();
+      console.error("[Drive API Error] Failed to set sheet permission to Anyone with link - Editor:", errorText);
+    }
+  } catch (err) {
+    console.error("[Drive API Error] Exception setting sheet permission:", err);
+  }
 }
 
 /**

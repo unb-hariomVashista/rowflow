@@ -48,12 +48,12 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
 };
 
 export const action = async ({ request }: ActionFunctionArgs) => {
-  const { billing } = await authenticate.admin(request);
+  const { billing, session } = await authenticate.admin(request);
   const formData = await request.formData();
   const plan = formData.get("plan") as string;
 
   const url = new URL(request.url);
-  const returnUrl = `${url.origin}/app/pricing`;
+  const returnUrl = `${url.origin}/app?shop=${encodeURIComponent(session.shop)}`;
 
   if (plan === STARTER_PLAN || plan === PRO_PLAN || plan === UNLIMITED_PLAN) {
     try {
