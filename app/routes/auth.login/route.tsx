@@ -53,23 +53,17 @@ export default function Auth() {
       >
         {/* Logo */}
         <div style={{ display: "flex", justifyContent: "center", marginBottom: 20 }}>
-          <div
+          <img
+            src="/logo.png"
+            alt="Rowflow Logo"
             style={{
               width: 52,
               height: 52,
               borderRadius: 14,
-              background: "linear-gradient(135deg, #0284c7 0%, #0369a1 100%)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              color: "#ffffff",
-              fontWeight: 800,
-              fontSize: 26,
-              boxShadow: "0 8px 16px rgba(2, 132, 199, 0.25)",
+              objectFit: "contain",
+              display: "block",
             }}
-          >
-            R
-          </div>
+          />
         </div>
 
         <h1 style={{ fontSize: 24, fontWeight: 800, color: "#0f172a", margin: "0 0 8px 0", letterSpacing: "-0.02em" }}>

@@ -61,23 +61,17 @@ export default function LandingPage() {
         }}
       >
         <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
-          <div
+          <img
+            src="/logo.png"
+            alt="Rowflow Logo"
             style={{
               width: 38,
               height: 38,
               borderRadius: 10,
-              background: "linear-gradient(135deg, #0284c7 0%, #0369a1 100%)",
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "center",
-              color: "#fff",
-              fontWeight: 800,
-              fontSize: 20,
-              boxShadow: "0 2px 8px rgba(2, 132, 199, 0.3)",
+              objectFit: "contain",
+              display: "block",
             }}
-          >
-            R
-          </div>
+          />
           <div>
             <span style={{ fontSize: 18, fontWeight: 800, color: "#0f172a", letterSpacing: "-0.02em" }}>
               Rowflow - Product Management
@@ -586,22 +580,17 @@ export default function LandingPage() {
         >
           <div>
             <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 8 }}>
-              <div
+              <img
+                src="/logo.png"
+                alt="Rowflow Logo"
                 style={{
-                  width: 30,
-                  height: 30,
+                  width: 32,
+                  height: 32,
                   borderRadius: 8,
-                  background: "#0284c7",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  color: "#fff",
-                  fontWeight: 800,
-                  fontSize: 16,
+                  objectFit: "contain",
+                  display: "block",
                 }}
-              >
-                R
-              </div>
+              />
               <span style={{ fontSize: 18, fontWeight: 800, color: "#ffffff" }}>
                 Rowflow - Product Management
               </span>
