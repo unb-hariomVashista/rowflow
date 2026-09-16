@@ -25,3 +25,11 @@ export async function getRecentSyncLogsByShopId(shopId: string, limit = 10) {
     take: limit,
   });
 }
+
+export async function getAllSyncLogsByShopId(shopId: string, limit = 200) {
+  return prisma.syncLog.findMany({
+    where: { shopId },
+    orderBy: { createdAt: "desc" },
+    take: limit,
+  });
+}

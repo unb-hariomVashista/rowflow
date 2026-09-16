@@ -221,7 +221,14 @@ export function AuthenticatedHome({
       </div>
 
       {/* 4. Recent Activity Table Card */}
-      <RecentActivityTable logs={syncLogs} />
+      <RecentActivityTable
+        logs={syncLogs}
+        isPaidPlan={
+          planInfo.activePlanName !== "Free Plan" &&
+          planInfo.activePlanName !== "free" &&
+          planInfo.activePlanName !== "Free"
+        }
+      />
     </>
   );
 }
