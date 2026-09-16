@@ -73,7 +73,7 @@ export default function Auth() {
         </div>
 
         <h1 style={{ fontSize: 24, fontWeight: 800, color: "#0f172a", margin: "0 0 8px 0", letterSpacing: "-0.02em" }}>
-          Log in to RowFlow
+          Log in to Rowflow - Product Management
         </h1>
         <p style={{ color: "#64748b", fontSize: 14, margin: "0 0 32px 0", lineHeight: 1.5 }}>
           Enter your Shopify store domain to authenticate and manage your product sync.
