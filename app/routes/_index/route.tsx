@@ -18,7 +18,8 @@ import {
   ShoppingBag,
   ArrowLeftRight,
   Box,
-  FileText
+  FileText,
+  RefreshCw
 } from "lucide-react";
 
 export const meta: MetaFunction = () => {
