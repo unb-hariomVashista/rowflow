@@ -1,5 +1,6 @@
 import type { LoaderFunctionArgs, MetaFunction } from "react-router";
 import { redirect, Link } from "react-router";
+import { useEffect } from "react";
 import {
   ArrowRight,
   Check,
@@ -36,13 +37,27 @@ export const meta: MetaFunction = () => {
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const url = new URL(request.url);
   const shop = url.searchParams.get("shop");
-  if (shop) {
+  const host = url.searchParams.get("host");
+  const embedded = url.searchParams.get("embedded");
+  const idToken = url.searchParams.get("id_token");
+  const secFetchDest = request.headers.get("sec-fetch-dest");
+
+  // If request originates inside Shopify Admin iframe or has Shopify query params, redirect to /app
+  if (shop || host || embedded === "1" || idToken || secFetchDest === "iframe") {
     return redirect(`/app${url.search}`);
   }
+
   return { showForm: true };
 };
 
 export default function LandingPage() {
+  useEffect(() => {
+    // If loaded inside Shopify Admin embedded iframe, redirect to embedded /app route
+    if (typeof window !== "undefined" && window.top !== window.self) {
+      window.location.replace(`/app${window.location.search}`);
+    }
+  }, []);
+
   return (
     <div
       style={{
