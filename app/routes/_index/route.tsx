@@ -2,27 +2,34 @@ import type { LoaderFunctionArgs, MetaFunction } from "react-router";
 import { redirect, Link } from "react-router";
 import {
   ArrowRight,
-  RefreshCw,
+  Check,
+  Play,
   FileSpreadsheet,
-  ShieldCheck,
-  Zap,
-  CheckCircle,
   Layers,
   Sparkles,
-  Lock,
+  History,
+  Zap,
+  Users,
+  BarChart3,
+  Heart,
+  Twitter,
+  Linkedin,
+  Mail,
   ExternalLink,
-  ArrowDownUp,
-  Sliders,
-  DollarSign
+  Lock,
+  ShoppingBag,
+  ArrowLeftRight,
+  Box,
+  FileText
 } from "lucide-react";
 
 export const meta: MetaFunction = () => {
   return [
-    { title: "Rowflow - Product Management | Shopify & Google Sheets Two-Way Sync" },
+    { title: "Rowflow - Product Management | Manage your Shopify products with ease." },
     {
       name: "description",
       content:
-        "Rowflow - Product Management: Connect your Shopify store catalog directly with Google Sheets for real-time 2-way product, variant, pricing, and inventory synchronization.",
+        "Sync your Shopify product data with Google Sheets, update products in bulk, and keep your store data organized.",
     },
   ];
 };
@@ -40,18 +47,21 @@ export default function LandingPage() {
   return (
     <div
       style={{
-        fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif",
-        color: "#0f172a",
-        backgroundColor: "#f8fafc",
+        fontFamily: "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif",
+        color: "#111827",
+        backgroundColor: "#ffffff",
         minHeight: "100vh",
+        overflowX: "hidden",
       }}
     >
-      {/* Navigation Header */}
+      {/* ─────────────────────────────────────────────────────────────
+          1. HEADER / NAVIGATION
+      ───────────────────────────────────────────────────────────── */}
       <header
         style={{
           background: "#ffffff",
-          borderBottom: "1px solid #e2e8f0",
-          padding: "16px 32px",
+          borderBottom: "1px solid #f1f5f9",
+          padding: "16px 48px",
           display: "flex",
           alignItems: "center",
           justifyContent: "space-between",
@@ -60,423 +70,796 @@ export default function LandingPage() {
           zIndex: 50,
         }}
       >
-        <div style={{ display: "flex", alignItems: "center", gap: 12 }}>
+        {/* Brand */}
+        <Link to="/" style={{ display: "flex", alignItems: "center", gap: 12, textDecoration: "none" }}>
           <img
             src="/logo.png"
             alt="Rowflow Logo"
-            style={{
-              width: 38,
-              height: 38,
-              borderRadius: 10,
-              objectFit: "contain",
-              display: "block",
+            onError={(e) => {
+              e.currentTarget.style.display = "none";
+              const nextEl = e.currentTarget.nextElementSibling;
+              if (nextEl) (nextEl as HTMLElement).style.display = "flex";
             }}
+            style={{ width: 36, height: 36, borderRadius: 8, objectFit: "contain", display: "block" }}
           />
-          <div>
-            <span style={{ fontSize: 18, fontWeight: 800, color: "#0f172a", letterSpacing: "-0.02em" }}>
-              Rowflow - Product Management
-            </span>
-            <div style={{ fontSize: 11, color: "#64748b", fontWeight: 500 }}>
-              Shopify &amp; Google Sheets Sync by Unbundl
-            </div>
-          </div>
-        </div>
-
-        <nav style={{ display: "flex", alignItems: "center", gap: 24 }}>
-          <a href="#features" style={{ color: "#475569", textDecoration: "none", fontSize: 14, fontWeight: 600 }}>
-            Features
-          </a>
-          <a href="#workflow" style={{ color: "#475569", textDecoration: "none", fontSize: 14, fontWeight: 600 }}>
-            How It Works
-          </a>
-          <a href="#oauth-transparency" style={{ color: "#475569", textDecoration: "none", fontSize: 14, fontWeight: 600 }}>
-            Data &amp; Security
-          </a>
-          <a href="#pricing" style={{ color: "#475569", textDecoration: "none", fontSize: 14, fontWeight: 600 }}>
-            Pricing
-          </a>
-          <Link
-            to="/auth/login"
+          <div
             style={{
-              display: "inline-flex",
+              display: "none",
+              width: 36,
+              height: 36,
+              borderRadius: 8,
+              background: "#008060",
               alignItems: "center",
-              gap: 8,
-              padding: "10px 20px",
-              background: "#0284c7",
-              color: "#ffffff",
-              borderRadius: 10,
-              fontWeight: 600,
-              textDecoration: "none",
-              fontSize: 14,
-              boxShadow: "0 2px 6px rgba(2, 132, 199, 0.25)",
+              justifyContent: "center",
+              color: "#fff",
+              fontWeight: 800,
+              fontSize: 18,
             }}
           >
-            Log in with Shopify <ArrowRight size={16} />
-          </Link>
-        </nav>
-      </header>
+            R
+          </div>
+          <div style={{ lineHeight: 1.1 }}>
+            <span style={{ fontSize: 19, fontWeight: 800, color: "#111827", letterSpacing: "-0.02em" }}>
+              Rowflow
+            </span>
+            <div style={{ fontSize: 11, color: "#6b7280", fontWeight: 500 }}>
+              - Product Management
+            </div>
+          </div>
+        </Link>
 
-      {/* Hero Section */}
-      <section style={{ maxWidth: 1150, margin: "0 auto", padding: "64px 24px 40px", textAlign: "center" }}>
-        <div
+        {/* Links */}
+        <nav style={{ display: "flex", alignItems: "center", gap: 32 }}>
+          <a href="#product" style={{ color: "#4b5563", textDecoration: "none", fontSize: 14, fontWeight: 500 }}>
+            Product
+          </a>
+          <a href="#how-it-works" style={{ color: "#4b5563", textDecoration: "none", fontSize: 14, fontWeight: 500 }}>
+            How it works
+          </a>
+          <a href="#pricing" style={{ color: "#4b5563", textDecoration: "none", fontSize: 14, fontWeight: 500 }}>
+            Pricing
+          </a>
+          <a href="#privacy" style={{ color: "#4b5563", textDecoration: "none", fontSize: 14, fontWeight: 500 }}>
+            Privacy
+          </a>
+        </nav>
+
+        {/* CTA */}
+        <Link
+          to="/auth/login"
           style={{
             display: "inline-flex",
             alignItems: "center",
             gap: 8,
-            padding: "8px 18px",
-            borderRadius: 100,
-            background: "#e0f2fe",
-            color: "#0369a1",
-            fontSize: 13,
-            fontWeight: 700,
-            marginBottom: 24,
-            border: "1px solid #bae6fd",
+            padding: "10px 22px",
+            background: "#008060",
+            color: "#ffffff",
+            borderRadius: 8,
+            fontWeight: 600,
+            textDecoration: "none",
+            fontSize: 14,
+            transition: "background 0.2s ease",
           }}
         >
-          <Zap size={15} /> Official App: Rowflow - Product Management
+          Get started <ArrowRight size={16} />
+        </Link>
+      </header>
+
+      {/* ─────────────────────────────────────────────────────────────
+          2. HERO SECTION
+      ───────────────────────────────────────────────────────────── */}
+      <section
+        id="product"
+        style={{
+          maxWidth: 1240,
+          margin: "0 auto",
+          padding: "60px 24px 70px",
+          display: "grid",
+          gridTemplateColumns: "1fr 1.1fr",
+          gap: 48,
+          alignItems: "center",
+        }}
+      >
+        {/* Left Column */}
+        <div>
+          <div
+            style={{
+              display: "inline-flex",
+              alignItems: "center",
+              gap: 6,
+              padding: "5px 14px",
+              borderRadius: 20,
+              background: "#ecfdf5",
+              border: "1px solid #d1fae5",
+              color: "#059669",
+              fontSize: 13,
+              fontWeight: 600,
+              marginBottom: 20,
+            }}
+          >
+            Rowflow - Product Management
+          </div>
+
+          <h1
+            style={{
+              fontSize: "clamp(38px, 4.5vw, 54px)",
+              fontWeight: 800,
+              lineHeight: 1.1,
+              letterSpacing: "-0.03em",
+              color: "#0f172a",
+              margin: "0 0 20px 0",
+            }}
+          >
+            Manage your Shopify products with ease.
+          </h1>
+
+          <p
+            style={{
+              fontSize: 17,
+              color: "#475569",
+              lineHeight: 1.6,
+              margin: "0 0 32px 0",
+              maxWidth: 480,
+            }}
+          >
+            Sync your Shopify product data with Google Sheets, update products in bulk, and keep your store data organized.
+          </p>
+
+          <div style={{ display: "flex", alignItems: "center", gap: 14, flexWrap: "wrap", marginBottom: 36 }}>
+            <Link
+              to="/auth/login"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 8,
+                padding: "13px 26px",
+                background: "#008060",
+                color: "#ffffff",
+                borderRadius: 8,
+                fontWeight: 600,
+                textDecoration: "none",
+                fontSize: 15,
+                boxShadow: "0 2px 8px rgba(0, 128, 96, 0.2)",
+              }}
+            >
+              Get started <ArrowRight size={17} />
+            </Link>
+
+            <a
+              href="#how-it-works"
+              style={{
+                display: "inline-flex",
+                alignItems: "center",
+                gap: 8,
+                padding: "13px 22px",
+                background: "#ffffff",
+                color: "#1e293b",
+                borderRadius: 8,
+                fontWeight: 600,
+                textDecoration: "none",
+                fontSize: 15,
+                border: "1px solid #e2e8f0",
+              }}
+            >
+              <div
+                style={{
+                  width: 22,
+                  height: 22,
+                  borderRadius: "50%",
+                  background: "#0f172a",
+                  color: "#fff",
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                }}
+              >
+                <Play size={10} fill="#ffffff" style={{ marginLeft: 1 }} />
+              </div>
+              See how it works
+            </a>
+          </div>
+
+          {/* Trust Checkmarks */}
+          <div style={{ display: "flex", alignItems: "center", gap: 20, flexWrap: "wrap", fontSize: 13, color: "#475569", fontWeight: 500 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+              <div style={{ width: 16, height: 16, borderRadius: "50%", background: "#a7f3d0", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <Check size={11} color="#065f46" strokeWidth={3} />
+              </div>
+              No credit card required
+            </div>
+            <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+              <div style={{ width: 16, height: 16, borderRadius: "50%", background: "#a7f3d0", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <Check size={11} color="#065f46" strokeWidth={3} />
+              </div>
+              Quick setup
+            </div>
+            <div style={{ display: "flex", alignItems: "center", gap: 6 }}>
+              <div style={{ width: 16, height: 16, borderRadius: "50%", background: "#a7f3d0", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <Check size={11} color="#065f46" strokeWidth={3} />
+              </div>
+              Trusted by merchants
+            </div>
+          </div>
         </div>
 
-        <h1
+        {/* Right Column: Dashboard Mockup + Floating Badges */}
+        <div style={{ position: "relative" }}>
+          {/* Floating Shopify Badge */}
+          <div
+            style={{
+              position: "absolute",
+              top: -30,
+              left: -35,
+              zIndex: 10,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            <div
+              style={{
+                width: 50,
+                height: 50,
+                borderRadius: 14,
+                background: "#ecfdf5",
+                border: "1.5px solid #a7f3d0",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                boxShadow: "0 10px 20px -5px rgba(0,0,0,0.06)",
+              }}
+            >
+              <ShoppingBag size={26} color="#008060" />
+            </div>
+            <div
+              style={{
+                fontFamily: "cursive, sans-serif",
+                fontSize: 13,
+                color: "#1e293b",
+                fontWeight: 600,
+                marginTop: 4,
+                textAlign: "center",
+                lineHeight: 1.1,
+              }}
+            >
+              Your<br />Shopify Store
+            </div>
+          </div>
+
+          {/* Floating Google Sheets Badge */}
+          <div
+            style={{
+              position: "absolute",
+              top: "40%",
+              right: -32,
+              zIndex: 10,
+              display: "flex",
+              flexDirection: "column",
+              alignItems: "center",
+            }}
+          >
+            <div
+              style={{
+                width: 48,
+                height: 48,
+                borderRadius: 14,
+                background: "#ecfdf5",
+                border: "1.5px solid #a7f3d0",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                boxShadow: "0 10px 20px -5px rgba(0,0,0,0.06)",
+              }}
+            >
+              <FileSpreadsheet size={26} color="#0f9d58" />
+            </div>
+            <div
+              style={{
+                fontFamily: "cursive, sans-serif",
+                fontSize: 12,
+                color: "#1e293b",
+                fontWeight: 600,
+                marginTop: 4,
+                textAlign: "center",
+                lineHeight: 1.1,
+                maxWidth: 90,
+              }}
+            >
+              Google Sheets<br /><span style={{ fontSize: 10, color: "#64748b" }}>Keep your data in sync</span>
+            </div>
+          </div>
+
+          {/* Realistic Dashboard Frame */}
+          <div
+            style={{
+              background: "#ffffff",
+              borderRadius: 20,
+              border: "1px solid #e2e8f0",
+              boxShadow: "0 25px 50px -12px rgba(15, 23, 42, 0.12)",
+              overflow: "hidden",
+            }}
+          >
+            {/* Window Header */}
+            <div
+              style={{
+                background: "#f8fafc",
+                borderBottom: "1px solid #e2e8f0",
+                padding: "10px 16px",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-between",
+                fontSize: 12,
+              }}
+            >
+              <div style={{ display: "flex", alignItems: "center", gap: 8 }}>
+                <div style={{ width: 18, height: 18, borderRadius: 4, background: "#008060", display: "flex", alignItems: "center", justifyContent: "center", color: "#fff", fontSize: 10, fontWeight: 800 }}>
+                  R
+                </div>
+                <span style={{ fontWeight: 700, color: "#0f172a" }}>Rowflow</span>
+                <span style={{ color: "#64748b" }}>- Product Management</span>
+              </div>
+              <div
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  gap: 6,
+                  background: "#ffffff",
+                  border: "1px solid #e2e8f0",
+                  padding: "3px 10px",
+                  borderRadius: 6,
+                  color: "#334155",
+                  fontWeight: 500,
+                }}
+              >
+                <ShoppingBag size={12} color="#008060" /> My Store ⌄
+              </div>
+            </div>
+
+            {/* App Body (Sidebar + Content) */}
+            <div style={{ display: "grid", gridTemplateColumns: "110px 1fr", minHeight: 330 }}>
+              {/* Sidebar */}
+              <div style={{ background: "#f8fafc", borderRight: "1px solid #e2e8f0", padding: "12px 8px" }}>
+                <div style={{ display: "flex", alignItems: "center", gap: 6, padding: "6px 8px", background: "#d1fae5", color: "#065f46", borderRadius: 6, fontSize: 11, fontWeight: 700, marginBottom: 4 }}>
+                  <Box size={13} /> Products
+                </div>
+                <div style={{ display: "flex", alignItems: "center", gap: 6, padding: "6px 8px", color: "#64748b", fontSize: 11, fontWeight: 500, marginBottom: 4 }}>
+                  <RefreshCw size={13} /> Sync
+                </div>
+                <div style={{ display: "flex", alignItems: "center", gap: 6, padding: "6px 8px", color: "#64748b", fontSize: 11, fontWeight: 500, marginBottom: 4 }}>
+                  <FileText size={13} /> Logs
+                </div>
+                <div style={{ display: "flex", alignItems: "center", gap: 6, padding: "6px 8px", color: "#64748b", fontSize: 11, fontWeight: 500 }}>
+                  <Zap size={13} /> Settings
+                </div>
+              </div>
+
+              {/* Main Content Area */}
+              <div style={{ padding: "16px 20px" }}>
+                {/* Title & Sync button */}
+                <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 14 }}>
+                  <div>
+                    <h3 style={{ margin: 0, fontSize: 15, fontWeight: 800, color: "#0f172a" }}>Products</h3>
+                    <div style={{ fontSize: 10, color: "#64748b" }}>Sync and manage your Shopify products with Google Sheets.</div>
+                  </div>
+                  <div
+                    style={{
+                      background: "#008060",
+                      color: "#ffffff",
+                      fontSize: 10,
+                      fontWeight: 700,
+                      padding: "5px 10px",
+                      borderRadius: 6,
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 4,
+                    }}
+                  >
+                    <RefreshCw size={10} /> Sync Now
+                  </div>
+                </div>
+
+                {/* 4 Stat Cards */}
+                <div style={{ display: "grid", gridTemplateColumns: "repeat(4, 1fr)", gap: 8, marginBottom: 14 }}>
+                  <div style={{ background: "#f8fafc", border: "1px solid #e2e8f0", padding: "8px", borderRadius: 8, textAlign: "center" }}>
+                    <div style={{ fontSize: 15, fontWeight: 800, color: "#0f172a" }}>248</div>
+                    <div style={{ fontSize: 9, color: "#64748b", fontWeight: 500 }}>Total Products</div>
+                  </div>
+                  <div style={{ background: "#f8fafc", border: "1px solid #e2e8f0", padding: "8px", borderRadius: 8, textAlign: "center" }}>
+                    <div style={{ fontSize: 15, fontWeight: 800, color: "#059669" }}>196</div>
+                    <div style={{ fontSize: 9, color: "#64748b", fontWeight: 500 }}>Published</div>
+                  </div>
+                  <div style={{ background: "#f8fafc", border: "1px solid #e2e8f0", padding: "8px", borderRadius: 8, textAlign: "center" }}>
+                    <div style={{ fontSize: 15, fontWeight: 800, color: "#d97706" }}>32</div>
+                    <div style={{ fontSize: 9, color: "#64748b", fontWeight: 500 }}>Drafts</div>
+                  </div>
+                  <div style={{ background: "#f8fafc", border: "1px solid #e2e8f0", padding: "8px", borderRadius: 8, textAlign: "center" }}>
+                    <div style={{ fontSize: 15, fontWeight: 800, color: "#dc2626" }}>20</div>
+                    <div style={{ fontSize: 9, color: "#64748b", fontWeight: 500 }}>Out of Stock</div>
+                  </div>
+                </div>
+
+                {/* Table */}
+                <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 10, textAlign: "left" }}>
+                  <thead>
+                    <tr style={{ borderBottom: "1px solid #e2e8f0", color: "#64748b", fontWeight: 600 }}>
+                      <th style={{ padding: "4px 0", fontWeight: 600 }}>Product</th>
+                      <th style={{ padding: "4px 6px", fontWeight: 600 }}>SKU</th>
+                      <th style={{ padding: "4px 6px", fontWeight: 600 }}>Price</th>
+                      <th style={{ padding: "4px 6px", fontWeight: 600 }}>Status</th>
+                      <th style={{ padding: "4px 0", fontWeight: 600, textAlign: "right" }}>Last Synced</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {[
+                      { name: "Classic Hoodie", sku: "HD-001", price: "$49.00", status: "Published", color: "#059669", bg: "#d1fae5", time: "2 mins ago" },
+                      { name: "Minimal Tee", sku: "MT-002", price: "$29.00", status: "Published", color: "#059669", bg: "#d1fae5", time: "2 mins ago" },
+                      { name: "Canvas Cap", sku: "CC-003", price: "$19.00", status: "Draft", color: "#b45309", bg: "#fef3c7", time: "5 mins ago" },
+                      { name: "Everyday Backpack", sku: "EB-004", price: "$79.00", status: "Published", color: "#059669", bg: "#d1fae5", time: "10 mins ago" },
+                      { name: "Ceramic Mug", sku: "CM-005", price: "$15.00", status: "Out of stock", color: "#b91c1c", bg: "#fee2e2", time: "12 mins ago" },
+                    ].map((item, idx) => (
+                      <tr key={idx} style={{ borderBottom: "1px solid #f1f5f9" }}>
+                        <td style={{ padding: "6px 0", fontWeight: 600, color: "#1e293b" }}>{item.name}</td>
+                        <td style={{ padding: "6px 6px", color: "#64748b" }}>{item.sku}</td>
+                        <td style={{ padding: "6px 6px", color: "#0f172a", fontWeight: 600 }}>{item.price}</td>
+                        <td style={{ padding: "6px 6px" }}>
+                          <span style={{ background: item.bg, color: item.color, padding: "2px 6px", borderRadius: 100, fontSize: 9, fontWeight: 700 }}>
+                            {item.status}
+                          </span>
+                        </td>
+                        <td style={{ padding: "6px 0", color: "#94a3b8", textAlign: "right" }}>{item.time}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </div>
+
+          {/* Bottom Doodled text */}
+          <div
+            style={{
+              textAlign: "right",
+              marginTop: 16,
+              fontFamily: "cursive, sans-serif",
+              fontSize: 18,
+              color: "#008060",
+              fontWeight: 700,
+            }}
+          >
+            Two-way sync. More possibilities. ✦
+          </div>
+        </div>
+      </section>
+
+      {/* ─────────────────────────────────────────────────────────────
+          3. THREE FEATURE CARDS
+      ───────────────────────────────────────────────────────────── */}
+      <section style={{ maxWidth: 1240, margin: "0 auto", padding: "40px 24px 80px" }}>
+        <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(320px, 1fr))", gap: 28 }}>
+          {/* Card 1 */}
+          <div
+            style={{
+              background: "#ffffff",
+              border: "1px solid #e2e8f0",
+              borderRadius: 20,
+              padding: 36,
+              boxShadow: "0 4px 20px rgba(0,0,0,0.03)",
+            }}
+          >
+            <div
+              style={{
+                width: 52,
+                height: 52,
+                borderRadius: 14,
+                background: "#ecfdf5",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                marginBottom: 24,
+              }}
+            >
+              <ArrowLeftRight size={24} color="#008060" />
+            </div>
+            <h3 style={{ fontSize: 19, fontWeight: 800, color: "#0f172a", margin: "0 0 10px 0" }}>
+              Shopify ↔ Google Sheets Sync
+            </h3>
+            <p style={{ color: "#64748b", fontSize: 14, lineHeight: 1.6, margin: 0 }}>
+              Automatically sync your product data between Shopify and Google Sheets with bi-directional updates.
+            </p>
+          </div>
+
+          {/* Card 2 */}
+          <div
+            style={{
+              background: "#ffffff",
+              border: "1px solid #e2e8f0",
+              borderRadius: 20,
+              padding: 36,
+              boxShadow: "0 4px 20px rgba(0,0,0,0.03)",
+            }}
+          >
+            <div
+              style={{
+                width: 52,
+                height: 52,
+                borderRadius: 14,
+                background: "#ecfdf5",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                marginBottom: 24,
+              }}
+            >
+              <Box size={24} color="#008060" />
+            </div>
+            <h3 style={{ fontSize: 19, fontWeight: 800, color: "#0f172a", margin: "0 0 10px 0" }}>
+              Bulk Product Management
+            </h3>
+            <p style={{ color: "#64748b", fontSize: 14, lineHeight: 1.6, margin: 0 }}>
+              Update product details like price, SKU, title, and status in bulk directly from Google Sheets.
+            </p>
+          </div>
+
+          {/* Card 3 */}
+          <div
+            style={{
+              background: "#ffffff",
+              border: "1px solid #e2e8f0",
+              borderRadius: 20,
+              padding: 36,
+              boxShadow: "0 4px 20px rgba(0,0,0,0.03)",
+            }}
+          >
+            <div
+              style={{
+                width: 52,
+                height: 52,
+                borderRadius: 14,
+                background: "#ecfdf5",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                marginBottom: 24,
+              }}
+            >
+              <FileText size={24} color="#008060" />
+            </div>
+            <h3 style={{ fontSize: 19, fontWeight: 800, color: "#0f172a", margin: "0 0 10px 0" }}>
+              Sync History &amp; Audit Logs
+            </h3>
+            <p style={{ color: "#64748b", fontSize: 14, lineHeight: 1.6, margin: 0 }}>
+              Track all your changes with detailed sync logs and easily identify what was updated.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ─────────────────────────────────────────────────────────────
+          4. HOW ROWFLOW WORKS (3-STEP TIMELINE)
+      ───────────────────────────────────────────────────────────── */}
+      <section id="how-it-works" style={{ maxWidth: 1240, margin: "0 auto", padding: "20px 24px 90px" }}>
+        <div style={{ position: "relative", marginBottom: 50 }}>
+          <div
+            style={{
+              display: "inline-block",
+              padding: "4px 12px",
+              borderRadius: 6,
+              background: "#d1fae5",
+              color: "#065f46",
+              fontSize: 11,
+              fontWeight: 800,
+              letterSpacing: "0.06em",
+              textTransform: "uppercase",
+              marginBottom: 12,
+            }}
+          >
+            SIMPLE SETUP
+          </div>
+          <h2 style={{ fontSize: 36, fontWeight: 800, color: "#0f172a", margin: "0 0 8px 0" }}>
+            How Rowflow works
+          </h2>
+          <p style={{ fontSize: 16, color: "#64748b", margin: 0 }}>
+            Get started in minutes and take control of your product data.
+          </p>
+
+          <div
+            style={{
+              position: "absolute",
+              right: 20,
+              top: 10,
+              fontFamily: "cursive, sans-serif",
+              fontSize: 18,
+              color: "#008060",
+              fontWeight: 700,
+              lineHeight: 1.2,
+              textAlign: "right",
+            }}
+          >
+            From your store<br />to your sheet<br />and back. ✦
+          </div>
+        </div>
+
+        {/* 3 Step Timeline */}
+        <div
           style={{
-            fontSize: "clamp(34px, 5.5vw, 56px)",
-            fontWeight: 800,
-            lineHeight: 1.15,
-            letterSpacing: "-0.03em",
-            color: "#0f172a",
-            maxWidth: 950,
-            margin: "0 auto 20px",
+            display: "grid",
+            gridTemplateColumns: "1fr auto 1fr auto 1fr",
+            gap: 16,
+            alignItems: "center",
           }}
         >
-          Two-Way Shopify &amp; Google Sheets Synchronization for Fast Product Management
-        </h1>
+          {/* Step 1 */}
+          <div style={{ background: "#ffffff", padding: "28px 24px", borderRadius: 16, border: "1px solid #f1f5f9" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 16 }}>
+              <div style={{ width: 28, height: 28, borderRadius: "50%", background: "#008060", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 700, fontSize: 13 }}>
+                1
+              </div>
+              <div style={{ width: 44, height: 44, borderRadius: 12, background: "#ecfdf5", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <ShoppingBag size={22} color="#008060" />
+              </div>
+            </div>
+            <h4 style={{ fontSize: 16, fontWeight: 700, color: "#0f172a", margin: "0 0 6px 0" }}>
+              Connect Shopify
+            </h4>
+            <p style={{ margin: 0, fontSize: 13, color: "#64748b", lineHeight: 1.5 }}>
+              Install Rowflow and connect your Shopify store securely.
+            </p>
+          </div>
 
-        <p
-          style={{
-            fontSize: 19,
-            color: "#475569",
-            maxWidth: 760,
-            margin: "0 auto 36px",
-            lineHeight: 1.6,
-          }}
-        >
-          <strong>Rowflow - Product Management</strong> connects your store product catalog directly to Google Sheets. Export prices, SKUs, inventory, and variants in one click, make bulk edits in spreadsheets, and import updates straight back to Shopify.
-        </p>
+          {/* Arrow 1 */}
+          <div style={{ color: "#a7f3d0", fontSize: 24, fontWeight: 700, padding: "0 8px" }}>
+            ⇢
+          </div>
 
-        <div style={{ display: "flex", justifyContent: "center", gap: 16, flexWrap: "wrap", marginBottom: 48 }}>
+          {/* Step 2 */}
+          <div style={{ background: "#ffffff", padding: "28px 24px", borderRadius: 16, border: "1px solid #f1f5f9" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 16 }}>
+              <div style={{ width: 28, height: 28, borderRadius: "50%", background: "#008060", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 700, fontSize: 13 }}>
+                2
+              </div>
+              <div style={{ width: 44, height: 44, borderRadius: 12, background: "#ecfdf5", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <FileSpreadsheet size={22} color="#0f9d58" />
+              </div>
+            </div>
+            <h4 style={{ fontSize: 16, fontWeight: 700, color: "#0f172a", margin: "0 0 6px 0" }}>
+              Connect Google Sheets
+            </h4>
+            <p style={{ margin: 0, fontSize: 13, color: "#64748b", lineHeight: 1.5 }}>
+              Sign in with Google and create a new sheet (or use an existing one).
+            </p>
+          </div>
+
+          {/* Arrow 2 */}
+          <div style={{ color: "#a7f3d0", fontSize: 24, fontWeight: 700, padding: "0 8px" }}>
+            ⇢
+          </div>
+
+          {/* Step 3 */}
+          <div style={{ background: "#ffffff", padding: "28px 24px", borderRadius: 16, border: "1px solid #f1f5f9" }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 16 }}>
+              <div style={{ width: 28, height: 28, borderRadius: "50%", background: "#008060", color: "#fff", display: "flex", alignItems: "center", justifyContent: "center", fontWeight: 700, fontSize: 13 }}>
+                3
+              </div>
+              <div style={{ width: 44, height: 44, borderRadius: 12, background: "#ecfdf5", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <ArrowLeftRight size={22} color="#008060" />
+              </div>
+            </div>
+            <h4 style={{ fontSize: 16, fontWeight: 700, color: "#0f172a", margin: "0 0 6px 0" }}>
+              Sync &amp; Manage Products
+            </h4>
+            <p style={{ margin: 0, fontSize: 13, color: "#64748b", lineHeight: 1.5 }}>
+              Your products are synced! Start managing and updating your store data with ease.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* ─────────────────────────────────────────────────────────────
+          5. BUILT FOR SHOPIFY MERCHANTS CTA BANNER
+      ───────────────────────────────────────────────────────────── */}
+      <section
+        style={{
+          background: "linear-gradient(180deg, #ecfdf5 0%, #f0fdf4 100%)",
+          padding: "80px 24px 70px",
+          textAlign: "center",
+          borderTop: "1px solid #d1fae5",
+          borderBottom: "1px solid #d1fae5",
+        }}
+      >
+        <div style={{ maxWidth: 900, margin: "0 auto" }}>
+          <div
+            style={{
+              fontSize: 12,
+              fontWeight: 800,
+              color: "#059669",
+              letterSpacing: "0.08em",
+              textTransform: "uppercase",
+              marginBottom: 12,
+            }}
+          >
+            BUILT FOR SHOPIFY MERCHANTS
+          </div>
+
+          <h2 style={{ fontSize: "clamp(30px, 4vw, 44px)", fontWeight: 800, color: "#0f172a", margin: "0 0 36px 0" }}>
+            Save time. Stay organized. Grow faster.
+          </h2>
+
+          {/* 4 Feature Badges */}
+          <div
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              gap: 16,
+              flexWrap: "wrap",
+              marginBottom: 44,
+            }}
+          >
+            <div style={{ display: "flex", alignItems: "center", gap: 8, background: "#ffffff", padding: "10px 18px", borderRadius: 10, border: "1px solid #e2e8f0", fontSize: 14, fontWeight: 600, color: "#1e293b" }}>
+              <div style={{ width: 28, height: 28, borderRadius: 6, background: "#ecfdf5", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <Zap size={16} color="#059669" />
+              </div>
+              Automate manual work
+            </div>
+
+            <div style={{ display: "flex", alignItems: "center", gap: 8, background: "#ffffff", padding: "10px 18px", borderRadius: 10, border: "1px solid #e2e8f0", fontSize: 14, fontWeight: 600, color: "#1e293b" }}>
+              <div style={{ width: 28, height: 28, borderRadius: 6, background: "#ecfdf5", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <Users size={16} color="#059669" />
+              </div>
+              Keep your data in sync
+            </div>
+
+            <div style={{ display: "flex", alignItems: "center", gap: 8, background: "#ffffff", padding: "10px 18px", borderRadius: 10, border: "1px solid #e2e8f0", fontSize: 14, fontWeight: 600, color: "#1e293b" }}>
+              <div style={{ width: 28, height: 28, borderRadius: 6, background: "#ecfdf5", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <BarChart3 size={16} color="#059669" />
+              </div>
+              Reduce errors
+            </div>
+
+            <div style={{ display: "flex", alignItems: "center", gap: 8, background: "#ffffff", padding: "10px 18px", borderRadius: 10, border: "1px solid #e2e8f0", fontSize: 14, fontWeight: 600, color: "#1e293b" }}>
+              <div style={{ width: 28, height: 28, borderRadius: 6, background: "#ecfdf5", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                <Heart size={16} color="#059669" />
+              </div>
+              Focus on growing your business
+            </div>
+          </div>
+
+          {/* Big CTA */}
           <Link
             to="/auth/login"
             style={{
               display: "inline-flex",
               alignItems: "center",
               gap: 8,
-              padding: "14px 32px",
-              background: "#0284c7",
+              padding: "16px 36px",
+              background: "#008060",
               color: "#ffffff",
-              borderRadius: 12,
+              borderRadius: 8,
               fontWeight: 700,
               textDecoration: "none",
               fontSize: 16,
-              boxShadow: "0 6px 20px -2px rgba(2, 132, 199, 0.35)",
+              boxShadow: "0 4px 14px rgba(0, 128, 96, 0.25)",
             }}
           >
-            Connect Your Store to Get Started <ArrowRight size={18} />
+            Get started <ArrowRight size={18} />
           </Link>
-          <a
-            href="#oauth-transparency"
-            style={{
-              display: "inline-flex",
-              alignItems: "center",
-              gap: 8,
-              padding: "14px 24px",
-              background: "#ffffff",
-              color: "#334155",
-              borderRadius: 12,
-              fontWeight: 600,
-              textDecoration: "none",
-              fontSize: 15,
-              border: "1px solid #cbd5e1",
-            }}
-          >
-            <ShieldCheck size={18} color="#0284c7" /> Google OAuth &amp; Security Policy
-          </a>
-        </div>
 
-        {/* Real Product Screenshot Banner */}
-        <div
-          style={{
-            borderRadius: 24,
-            overflow: "hidden",
-            boxShadow: "0 25px 50px -12px rgba(15, 23, 42, 0.15)",
-            border: "1px solid #cbd5e1",
-            background: "#ffffff",
-            padding: 8,
-          }}
-        >
-          <img
-            src="/top-banner.png"
-            alt="Rowflow - Product Management Dashboard Interface"
-            style={{ width: "100%", height: "auto", display: "block", borderRadius: 16 }}
-          />
-        </div>
-      </section>
-
-      {/* Synchronized Columns / Data Overview */}
-      <section id="features" style={{ maxWidth: 1150, margin: "0 auto", padding: "60px 24px" }}>
-        <div style={{ textAlign: "center", marginBottom: 48 }}>
-          <h2 style={{ fontSize: 32, fontWeight: 800, color: "#0f172a", marginBottom: 12 }}>
-            Complete Product Catalog Data in Your Spreadsheet
-          </h2>
-          <p style={{ color: "#64748b", fontSize: 16, maxWidth: 650, margin: "0 auto" }}>
-            Rowflow automatically maps all standard Shopify fields and variant attributes into formatted Google Sheets columns.
-          </p>
-        </div>
-
-        <div
-          style={{
-            background: "#ffffff",
-            borderRadius: 20,
-            border: "1px solid #e2e8f0",
-            padding: 32,
-            boxShadow: "0 4px 16px rgba(0,0,0,0.03)",
-          }}
-        >
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(240px, 1fr))", gap: 20 }}>
-            {[
-              { label: "Product & Variant IDs", desc: "Permanent Shopify GraphQL IDs for 100% collision-free updates." },
-              { label: "Title, Handle & Description", desc: "Update product titles, SEO handles, and body HTML in bulk." },
-              { label: "SKU & Barcodes", desc: "Easily update stock keeping units and UPC/EAN barcodes across all variants." },
-              { label: "Price & Compare-At Price", desc: "Perform bulk sales, percentage discounts, and pricing formula updates." },
-              { label: "Inventory Levels", desc: "Adjust available stock quantities directly from your spreadsheet." },
-              { label: "Vendor, Type & Tags", desc: "Organize collections, categories, and custom filtering tags effortlessly." },
-              { label: "Product Status", desc: "Switch status between ACTIVE, DRAFT, and ARCHIVED in real time." },
-              { label: "Options (Color, Size, etc.)", desc: "Complete multi-variant option structure synced accurately." },
-            ].map((col, idx) => (
-              <div
-                key={idx}
-                style={{
-                  background: "#f8fafc",
-                  padding: 20,
-                  borderRadius: 14,
-                  border: "1px solid #e2e8f0",
-                }}
-              >
-                <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 8 }}>
-                  <CheckCircle size={18} color="#0284c7" />
-                  <span style={{ fontWeight: 700, fontSize: 15, color: "#0f172a" }}>{col.label}</span>
-                </div>
-                <p style={{ margin: 0, fontSize: 13, color: "#64748b", lineHeight: 1.5 }}>
-                  {col.desc}
-                </p>
-              </div>
-            ))}
+          <div style={{ fontSize: 13, color: "#64748b", marginTop: 12 }}>
+            No credit card required.
           </div>
         </div>
       </section>
 
-      {/* How it Works Workflow */}
-      <section id="workflow" style={{ background: "#ffffff", borderTop: "1px solid #e2e8f0", borderBottom: "1px solid #e2e8f0", padding: "80px 24px" }}>
-        <div style={{ maxWidth: 1150, margin: "0 auto" }}>
-          <div style={{ textAlign: "center", marginBottom: 56 }}>
-            <span style={{ fontSize: 13, fontWeight: 700, color: "#0284c7", textTransform: "uppercase", letterSpacing: "0.05em" }}>
-              Simplified 3-Step Process
-            </span>
-            <h2 style={{ fontSize: 32, fontWeight: 800, color: "#0f172a", marginTop: 8 }}>
-              How Rowflow - Product Management Works
-            </h2>
-          </div>
-
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(300px, 1fr))", gap: 32 }}>
-            <div style={{ background: "#f8fafc", padding: 32, borderRadius: 20, border: "1px solid #e2e8f0" }}>
-              <div
-                style={{
-                  width: 44,
-                  height: 44,
-                  borderRadius: 12,
-                  background: "#0284c7",
-                  color: "#ffffff",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  fontWeight: 800,
-                  fontSize: 18,
-                  marginBottom: 20,
-                }}
-              >
-                1
-              </div>
-              <h3 style={{ fontSize: 20, fontWeight: 700, color: "#0f172a", marginBottom: 10 }}>
-                1. Connect Google Sheets
-              </h3>
-              <p style={{ color: "#64748b", fontSize: 14, lineHeight: 1.6, margin: 0 }}>
-                Link your Google Drive account with secure OAuth 2.0. Rowflow automatically creates a formatted, ready-to-use Google Spreadsheet for your store.
-              </p>
-            </div>
-
-            <div style={{ background: "#f8fafc", padding: 32, borderRadius: 20, border: "1px solid #e2e8f0" }}>
-              <div
-                style={{
-                  width: 44,
-                  height: 44,
-                  borderRadius: 12,
-                  background: "#0284c7",
-                  color: "#ffffff",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  fontWeight: 800,
-                  fontSize: 18,
-                  marginBottom: 20,
-                }}
-              >
-                2
-              </div>
-              <h3 style={{ fontSize: 20, fontWeight: 700, color: "#0f172a", marginBottom: 10 }}>
-                2. Export &amp; Bulk Edit
-              </h3>
-              <p style={{ color: "#64748b", fontSize: 14, lineHeight: 1.6, margin: 0 }}>
-                Click &ldquo;Export to Google Sheets&rdquo; to populate your spreadsheet. Use powerful spreadsheet formulas, fill-handles, and filters to update hundreds of products at once.
-              </p>
-            </div>
-
-            <div style={{ background: "#f8fafc", padding: 32, borderRadius: 20, border: "1px solid #e2e8f0" }}>
-              <div
-                style={{
-                  width: 44,
-                  height: 44,
-                  borderRadius: 12,
-                  background: "#0284c7",
-                  color: "#ffffff",
-                  display: "flex",
-                  alignItems: "center",
-                  justifyContent: "center",
-                  fontWeight: 800,
-                  fontSize: 18,
-                  marginBottom: 20,
-                }}
-              >
-                3
-              </div>
-              <h3 style={{ fontSize: 20, fontWeight: 700, color: "#0f172a", marginBottom: 10 }}>
-                3. Import Back to Store
-              </h3>
-              <p style={{ color: "#64748b", fontSize: 14, lineHeight: 1.6, margin: 0 }}>
-                Click &ldquo;Import from Google Sheets&rdquo;. Rowflow safely applies all modified fields directly to your live Shopify store catalog with comprehensive sync logs.
-              </p>
-            </div>
-          </div>
-
-          <div style={{ marginTop: 40, borderRadius: 20, overflow: "hidden", border: "1px solid #e2e8f0" }}>
-            <img
-              src="/sync-page.png"
-              alt="Rowflow - Product Management Sync Workflow Banner"
-              style={{ width: "100%", height: "auto", display: "block" }}
-            />
-          </div>
-        </div>
-      </section>
-
-      {/* Google OAuth & Data Transparency Section (Crucial for Google OAuth Verification) */}
-      <section id="oauth-transparency" style={{ maxWidth: 1150, margin: "0 auto", padding: "80px 24px" }}>
-        <div
-          style={{
-            background: "linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%)",
-            borderRadius: 24,
-            border: "1.5px solid #bae6fd",
-            padding: "48px 40px",
-          }}
-        >
-          <div style={{ display: "flex", alignItems: "center", gap: 12, marginBottom: 16 }}>
-            <div style={{ background: "#0284c7", color: "#fff", padding: 8, borderRadius: 10 }}>
-              <Lock size={22} />
-            </div>
-            <h2 style={{ fontSize: 26, fontWeight: 800, color: "#0c4a6e", margin: 0 }}>
-              Google OAuth Consent &amp; Privacy Transparency
-            </h2>
-          </div>
-
-          <p style={{ fontSize: 15, color: "#334155", lineHeight: 1.7, marginBottom: 24 }}>
-            <strong>Rowflow - Product Management</strong> adheres strictly to Google API Services User Data Policy, including the Limited Use requirements.
-          </p>
-
-          <div style={{ display: "grid", gridTemplateColumns: "repeat(auto-fit, minmax(280px, 1fr))", gap: 20, marginBottom: 28 }}>
-            <div style={{ background: "#ffffff", padding: 20, borderRadius: 14, border: "1px solid #cbd5e1" }}>
-              <h4 style={{ fontSize: 15, fontWeight: 700, color: "#0f172a", margin: "0 0 6px" }}>
-                Google Sheets Permission
-              </h4>
-              <p style={{ margin: 0, fontSize: 13, color: "#64748b", lineHeight: 1.5 }}>
-                <code>https://www.googleapis.com/auth/spreadsheets</code>: Used exclusively to read product data from and write product catalog updates to the designated store spreadsheet.
-              </p>
-            </div>
-
-            <div style={{ background: "#ffffff", padding: 20, borderRadius: 14, border: "1px solid #cbd5e1" }}>
-              <h4 style={{ fontSize: 15, fontWeight: 700, color: "#0f172a", margin: "0 0 6px" }}>
-                Google Drive Permission
-              </h4>
-              <p style={{ margin: 0, fontSize: 13, color: "#64748b", lineHeight: 1.5 }}>
-                <code>https://www.googleapis.com/auth/drive.file</code>: Used only to create and manage the specific spreadsheet created by or explicitly linked to Rowflow.
-              </p>
-            </div>
-
-            <div style={{ background: "#ffffff", padding: 20, borderRadius: 14, border: "1px solid #cbd5e1" }}>
-              <h4 style={{ fontSize: 15, fontWeight: 700, color: "#0f172a", margin: "0 0 6px" }}>
-                Zero Customer PII Storage
-              </h4>
-              <p style={{ margin: 0, fontSize: 13, color: "#64748b", lineHeight: 1.5 }}>
-                Rowflow does NOT access, store, or share any customer personal data, customer orders, or payment details. Your data is strictly used for store catalog operations.
-              </p>
-            </div>
-          </div>
-
-          <div style={{ display: "flex", gap: 16, flexWrap: "wrap", alignItems: "center" }}>
-            <a
-              href="https://unbundl.com/privacy"
-              target="_blank"
-              rel="noreferrer"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 6,
-                color: "#0369a1",
-                fontSize: 14,
-                fontWeight: 700,
-                textDecoration: "none",
-              }}
-            >
-              Privacy Policy <ExternalLink size={14} />
-            </a>
-            <span style={{ color: "#94a3b8" }}>&bull;</span>
-            <a
-              href="https://unbundl.com/terms"
-              target="_blank"
-              rel="noreferrer"
-              style={{
-                display: "inline-flex",
-                alignItems: "center",
-                gap: 6,
-                color: "#0369a1",
-                fontSize: 14,
-                fontWeight: 700,
-                textDecoration: "none",
-              }}
-            >
-              Terms of Service <ExternalLink size={14} />
-            </a>
-            <span style={{ color: "#94a3b8" }}>&bull;</span>
-            <span style={{ fontSize: 13, color: "#475569" }}>
-              Developer: <strong>Unbundl</strong> &bull; Contact: <strong>support@unbundl.com</strong>
-            </span>
-          </div>
-        </div>
-      </section>
-
-      {/* Pricing Section */}
-      <section id="pricing" style={{ maxWidth: 1150, margin: "0 auto", padding: "40px 24px 80px" }}>
+      {/* ─────────────────────────────────────────────────────────────
+          6. PRICING SECTION (For navigation anchor)
+      ───────────────────────────────────────────────────────────── */}
+      <section id="pricing" style={{ maxWidth: 1240, margin: "0 auto", padding: "70px 24px 80px" }}>
         <div style={{ textAlign: "center", marginBottom: 48 }}>
           <h2 style={{ fontSize: 32, fontWeight: 800, color: "#0f172a", marginBottom: 12 }}>
             Simple, Transparent Pricing
           </h2>
-          <p style={{ color: "#64748b", fontSize: 16 }}>
-            Scale your product sync as your Shopify store grows.
+          <p style={{ color: "#64748b", fontSize: 15 }}>
+            Pick a plan tailored to your catalog size. Upgrade or cancel anytime.
           </p>
         </div>
 
@@ -492,9 +875,8 @@ export default function LandingPage() {
               style={{
                 background: "#ffffff",
                 padding: 28,
-                borderRadius: 20,
-                border: idx === 1 ? "2px solid #0284c7" : "1px solid #e2e8f0",
-                boxShadow: idx === 1 ? "0 10px 25px -5px rgba(2, 132, 199, 0.15)" : "0 4px 12px rgba(0,0,0,0.03)",
+                borderRadius: 16,
+                border: idx === 1 ? "2px solid #008060" : "1px solid #e2e8f0",
                 display: "flex",
                 flexDirection: "column",
                 justifyContent: "space-between",
@@ -508,7 +890,7 @@ export default function LandingPage() {
                     top: -12,
                     left: "50%",
                     transform: "translateX(-50%)",
-                    background: "#0284c7",
+                    background: "#008060",
                     color: "#fff",
                     padding: "2px 12px",
                     borderRadius: 100,
@@ -526,7 +908,7 @@ export default function LandingPage() {
                   <span style={{ fontSize: 32, fontWeight: 800, color: "#0f172a" }}>{plan.price}</span>
                   <span style={{ fontSize: 13, color: "#64748b" }}>/ {plan.period}</span>
                 </div>
-                <div style={{ fontWeight: 600, fontSize: 14, color: "#0284c7", marginBottom: 12 }}>
+                <div style={{ fontWeight: 600, fontSize: 14, color: "#008060", marginBottom: 12 }}>
                   Sync up to {plan.limit}
                 </div>
                 <p style={{ fontSize: 13, color: "#64748b", lineHeight: 1.5, margin: "0 0 20px" }}>
@@ -540,9 +922,10 @@ export default function LandingPage() {
                   display: "block",
                   textAlign: "center",
                   padding: "10px 16px",
-                  background: idx === 1 ? "#0284c7" : "#f1f5f9",
+                  background: idx === 1 ? "#008060" : "#f8fafc",
                   color: idx === 1 ? "#ffffff" : "#0f172a",
-                  borderRadius: 10,
+                  border: idx === 1 ? "none" : "1px solid #e2e8f0",
+                  borderRadius: 8,
                   fontWeight: 600,
                   textDecoration: "none",
                   fontSize: 14,
@@ -555,66 +938,145 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Footer */}
+      {/* ─────────────────────────────────────────────────────────────
+          7. GOOGLE OAUTH DATA & PRIVACY POLICY SECTION
+      ───────────────────────────────────────────────────────────── */}
+      <section id="privacy" style={{ maxWidth: 1240, margin: "0 auto", padding: "0 24px 80px" }}>
+        <div
+          style={{
+            background: "#f8fafc",
+            borderRadius: 20,
+            border: "1px solid #e2e8f0",
+            padding: "36px 32px",
+          }}
+        >
+          <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 12 }}>
+            <Lock size={20} color="#008060" />
+            <h3 style={{ margin: 0, fontSize: 18, fontWeight: 800, color: "#0f172a" }}>
+              Google API &amp; Data Security Policy
+            </h3>
+          </div>
+          <p style={{ fontSize: 14, color: "#475569", lineHeight: 1.6, margin: "0 0 20px 0" }}>
+            <strong>Rowflow - Product Management</strong> adheres strictly to the Google API Services User Data Policy, including the Limited Use requirements.
+            Requested permissions (<code>spreadsheets</code>, <code>drive.file</code>) are used solely to read/write product catalog details into your designated spreadsheet. Rowflow does not access, store, or share customer personal information (PII) or financial transactions.
+          </p>
+          <div style={{ display: "flex", gap: 20, flexWrap: "wrap", fontSize: 13 }}>
+            <a href="https://unbundl.com/privacy" target="_blank" rel="noreferrer" style={{ color: "#008060", fontWeight: 600, textDecoration: "none" }}>
+              Privacy Policy ↗
+            </a>
+            <a href="https://unbundl.com/terms" target="_blank" rel="noreferrer" style={{ color: "#008060", fontWeight: 600, textDecoration: "none" }}>
+              Terms of Service ↗
+            </a>
+            <span style={{ color: "#64748b" }}>
+              Developed by <strong>Unbundl</strong> &bull; Contact: <strong>support@unbundl.com</strong>
+            </span>
+          </div>
+        </div>
+      </section>
+
+      {/* ─────────────────────────────────────────────────────────────
+          8. FOOTER (CHARCOAL DARK)
+      ───────────────────────────────────────────────────────────── */}
       <footer
         style={{
-          background: "#0f172a",
+          background: "#0c181c",
           color: "#94a3b8",
-          padding: "48px 24px 32px",
-          borderTop: "1px solid #1e293b",
+          padding: "48px 32px 36px",
         }}
       >
         <div
           style={{
-            maxWidth: 1150,
+            maxWidth: 1240,
             margin: "0 auto",
             display: "flex",
             flexWrap: "wrap",
             justifyContent: "space-between",
             alignItems: "center",
             gap: 24,
-            borderBottom: "1px solid #1e293b",
+            borderBottom: "1px solid #1e2e34",
             paddingBottom: 32,
             marginBottom: 24,
           }}
         >
+          {/* Left Brand */}
           <div>
-            <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 8 }}>
+            <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 6 }}>
               <img
                 src="/logo.png"
                 alt="Rowflow Logo"
-                style={{
-                  width: 32,
-                  height: 32,
-                  borderRadius: 8,
-                  objectFit: "contain",
-                  display: "block",
+                onError={(e) => {
+                  e.currentTarget.style.display = "none";
+                  const nextEl = e.currentTarget.nextElementSibling;
+                  if (nextEl) (nextEl as HTMLElement).style.display = "flex";
                 }}
+                style={{ width: 30, height: 30, borderRadius: 6, objectFit: "contain", display: "block" }}
               />
-              <span style={{ fontSize: 18, fontWeight: 800, color: "#ffffff" }}>
-                Rowflow - Product Management
-              </span>
+              <div
+                style={{
+                  display: "none",
+                  width: 30,
+                  height: 30,
+                  borderRadius: 6,
+                  background: "#008060",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  color: "#fff",
+                  fontWeight: 800,
+                  fontSize: 15,
+                }}
+              >
+                R
+              </div>
+              <div style={{ lineHeight: 1.1 }}>
+                <span style={{ fontSize: 17, fontWeight: 800, color: "#ffffff" }}>
+                  Rowflow
+                </span>
+                <div style={{ fontSize: 10, color: "#64748b" }}>
+                  - Product Management
+                </div>
+              </div>
             </div>
-            <p style={{ margin: 0, fontSize: 13, color: "#64748b" }}>
-              Developed by <strong>Unbundl</strong> &bull; Reliable Shopify Product Synchronization
+            <p style={{ margin: "6px 0 0 0", fontSize: 12, color: "#64748b" }}>
+              Sync. Manage. Grow.
             </p>
           </div>
 
-          <div style={{ display: "flex", gap: 24, alignItems: "center" }}>
-            <a href="https://unbundl.com/privacy" target="_blank" rel="noreferrer" style={{ color: "#94a3b8", textDecoration: "none", fontSize: 14 }}>
+          {/* Center Links */}
+          <div style={{ display: "flex", gap: 24, alignItems: "center", flexWrap: "wrap", fontSize: 13 }}>
+            <a href="#product" style={{ color: "#94a3b8", textDecoration: "none" }}>
+              Product
+            </a>
+            <a href="#pricing" style={{ color: "#94a3b8", textDecoration: "none" }}>
+              Pricing
+            </a>
+            <a href="https://unbundl.com/privacy" target="_blank" rel="noreferrer" style={{ color: "#94a3b8", textDecoration: "none" }}>
               Privacy Policy
             </a>
-            <a href="https://unbundl.com/terms" target="_blank" rel="noreferrer" style={{ color: "#94a3b8", textDecoration: "none", fontSize: 14 }}>
+            <a href="https://unbundl.com/terms" target="_blank" rel="noreferrer" style={{ color: "#94a3b8", textDecoration: "none" }}>
               Terms of Service
             </a>
-            <Link to="/auth/login" style={{ color: "#38bdf8", textDecoration: "none", fontSize: 14, fontWeight: 600 }}>
-              Store Login &rarr;
-            </Link>
+            <a href="mailto:support@unbundl.com" style={{ color: "#94a3b8", textDecoration: "none" }}>
+              Contact
+            </a>
+          </div>
+
+          {/* Right Social Icons */}
+          <div style={{ display: "flex", gap: 14, alignItems: "center" }}>
+            <a href="https://twitter.com" target="_blank" rel="noreferrer" style={{ color: "#94a3b8", textDecoration: "none" }}>
+              <Twitter size={17} />
+            </a>
+            <a href="https://linkedin.com" target="_blank" rel="noreferrer" style={{ color: "#94a3b8", textDecoration: "none" }}>
+              <Linkedin size={17} />
+            </a>
+            <a href="mailto:support@unbundl.com" style={{ color: "#94a3b8", textDecoration: "none" }}>
+              <Mail size={17} />
+            </a>
           </div>
         </div>
 
-        <div style={{ maxWidth: 1150, margin: "0 auto", textAlign: "center", fontSize: 13, color: "#64748b" }}>
-          &copy; {new Date().getFullYear()} Rowflow - Product Management by Unbundl. All rights reserved.
+        {/* Copyright */}
+        <div style={{ maxWidth: 1240, margin: "0 auto", textAlign: "right", fontSize: 12, color: "#64748b" }}>
+          &copy; {new Date().getFullYear()} Rowflow - Product Management. All rights reserved.
         </div>
       </footer>
     </div>
