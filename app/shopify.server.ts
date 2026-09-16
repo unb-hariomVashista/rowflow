@@ -1,3 +1,4 @@
+import "dotenv/config";
 import "@shopify/shopify-app-react-router/adapters/node";
 import {
   ApiVersion,
@@ -57,11 +58,15 @@ const shopify = shopifyApp({
   },
   hooks: {
     afterAuth: async ({ session }) => {
-      await prisma.shop.upsert({
-        where: { shopDomain: session.shop },
-        create: { shopDomain: session.shop },
-        update: {},
-      });
+      try {
+        await prisma.shop.upsert({
+          where: { shopDomain: session.shop },
+          create: { shopDomain: session.shop },
+          update: {},
+        });
+      } catch (error) {
+        console.error("[shopify.server afterAuth Error]:", error);
+      }
     },
   },
   ...(process.env.SHOP_CUSTOM_DOMAIN

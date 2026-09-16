@@ -30,6 +30,7 @@ export default function App() {
 // Shopify needs React Router to catch some thrown responses, so that their headers are included in the response.
 export function ErrorBoundary() {
   const error = useRouteError();
+  console.error("[app.tsx ErrorBoundary Caught]:", error);
   // Handle standalone browser access (when loaded directly outside Shopify Admin iframe)
   if (
     error &&
