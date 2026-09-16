@@ -27,6 +27,7 @@ import {
 } from "../repositories/shop.repository";
 import { sanitizeErrorMessage } from "../utils/error";
 import { getActivePlanName, getPlanLimit } from "../services/plan.server";
+import { formatPlanDisplayName } from "../constants/plans";
 import { AlertCircle } from "lucide-react";
 
 // Import Modular Components & Scoped Styles
@@ -79,7 +80,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     activeSyncType: shop.activeSyncType,
     productCount: shop.productCount,
     planInfo: {
-      activePlanName,
+      activePlanName: formatPlanDisplayName(activePlanName),
       planLimit: planLimit === Infinity ? "Unlimited" : planLimit,
       productCount,
       isPlanLimitExceeded,

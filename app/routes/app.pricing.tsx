@@ -1,15 +1,21 @@
 import type { ActionFunctionArgs, HeadersFunction, LoaderFunctionArgs } from "react-router";
 import { Form, redirect, useLoaderData, useRouteError } from "react-router";
 import { authenticate } from "../shopify.server";
-import { STARTER_PLAN, PRO_PLAN, UNLIMITED_PLAN } from "../constants/plans";
+import {
+  FREE_PLAN,
+  STARTER_PLAN,
+  PRO_PLAN,
+  UNLIMITED_PLAN,
+  formatPlanDisplayName,
+} from "../constants/plans";
 import { boundary } from "@shopify/shopify-app-react-router/server";
-import { findShopByDomain, upsertShop } from "../repositories/shop.repository";
-import { Check, AlertCircle } from "lucide-react";
+import { findShopByDomain, upsertShop, updateShop } from "../repositories/shop.repository";
+import { Check, AlertCircle, Sparkles } from "lucide-react";
 import { getActivePlanName, getPlanLimit } from "../services/plan.server";
 import "../styles/common.css";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
-  const { billing, session } = await authenticate.admin(request);
+  const { billing, session, admin } = await authenticate.admin(request);
   const shopDomain = session.shop;
 
   let shop = await findShopByDomain(shopDomain);
@@ -17,21 +23,51 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     shop = await upsertShop(shopDomain);
   }
 
-  const productCount = shop.productCount || 0;
+  let productCount = shop.productCount || 0;
+  if (productCount === 0 && admin) {
+    try {
+      const countRes = await admin.graphql(`
+        query {
+          productsCount {
+            count
+          }
+        }
+      `);
+      const countData = await countRes.json();
+      if (typeof countData?.data?.productsCount?.count === "number") {
+        productCount = countData.data.productsCount.count;
+        await updateShop(shopDomain, { productCount });
+      }
+    } catch (e) {
+      // ignore
+    }
+  }
 
   // Check Shopify active payment
   const activePlanName = await getActivePlanName(billing);
 
   // Map active plan name to tier
   let currentTier: "free" | "starter" | "pro" | "unlimited" = "free";
-  if (activePlanName === UNLIMITED_PLAN) {
+  if (activePlanName === UNLIMITED_PLAN || activePlanName === "Unlimited Plan") {
     currentTier = "unlimited";
-  } else if (activePlanName === PRO_PLAN) {
+  } else if (activePlanName === PRO_PLAN || activePlanName === "Pro Plan") {
     currentTier = "pro";
-  } else if (activePlanName === STARTER_PLAN) {
+  } else if (activePlanName === STARTER_PLAN || activePlanName === "Starter Plan") {
     currentTier = "starter";
   } else {
     currentTier = "free";
+  }
+
+  // Determine best-fit plan tier dynamically based on store's product count
+  let recommendedTier: "free" | "starter" | "pro" | "unlimited" = "free";
+  if (productCount <= 10) {
+    recommendedTier = "free";
+  } else if (productCount <= 500) {
+    recommendedTier = "starter";
+  } else if (productCount <= 2000) {
+    recommendedTier = "pro";
+  } else {
+    recommendedTier = "unlimited";
   }
 
   const limit = getPlanLimit(activePlanName);
@@ -41,6 +77,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     shopDomain,
     productCount,
     currentTier,
+    recommendedTier,
     activePlanName,
     limit: limit === Infinity ? "Unlimited" : limit,
     isLimitExceeded,
@@ -70,7 +107,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 
   // Cancel subscription if switching back to Free plan
   const billingCheck = await billing.check({
-    plans: [STARTER_PLAN, PRO_PLAN, UNLIMITED_PLAN],
+    plans: [STARTER_PLAN, PRO_PLAN, UNLIMITED_PLAN, "Starter Plan", "Pro Plan", "Unlimited Plan"],
     isTest: true,
   });
   if (billingCheck.hasActivePayment && billingCheck.appSubscriptions.length > 0) {
@@ -86,19 +123,18 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 };
 
 export default function PricingPage() {
-  const { productCount, currentTier, activePlanName, limit, isLimitExceeded } = useLoaderData<typeof loader>();
+  const { productCount, currentTier, recommendedTier, activePlanName, limit, isLimitExceeded } = useLoaderData<typeof loader>();
 
   const plans = [
     {
       id: "free",
-      billingName: "Free Plan",
+      billingName: FREE_PLAN,
       name: "Free",
       subtitle: "Perfect for getting started",
       price: "$0",
       period: "forever",
-      ctaText: "Current plan",
+      ctaText: "Switch to Free",
       cardFooter: "Great for testing Rowflow with a small catalog.",
-      isPopular: false,
       features: [
         "Up to 10 products",
         "Bi-directional sync (Shopify ↔ Google Sheets)",
@@ -116,7 +152,6 @@ export default function PricingPage() {
       period: "month",
       ctaText: "Upgrade to Starter",
       cardFooter: "Everything you need to keep your store in sync.",
-      isPopular: true,
       features: [
         "Up to 500 products",
         "Bi-directional sync",
@@ -135,7 +170,6 @@ export default function PricingPage() {
       period: "month",
       ctaText: "Upgrade to Pro",
       cardFooter: "Built for serious store owners with larger catalogs.",
-      isPopular: false,
       features: [
         "Up to 2,000 products",
         "Bi-directional cursor sync",
@@ -154,7 +188,6 @@ export default function PricingPage() {
       period: "month",
       ctaText: "Upgrade to Unlimited",
       cardFooter: "Maximum power, zero limits. Tailored for enterprise stores.",
-      isPopular: false,
       features: [
         "Unlimited products & variants",
         "Fast bulk GraphQL processing",
@@ -246,9 +279,39 @@ export default function PricingPage() {
     },
   ];
 
+  const recommendedPlanObj = plans.find((p) => p.id === recommendedTier);
+
   return (
     <s-page heading="Billing">
       <div className="rowflow-container" style={{ maxWidth: 1100, margin: "0 auto", padding: "24px 16px" }}>
+        {/* Store Catalog & Recommendation Summary Banner */}
+        <div
+          style={{
+            background: "#ffffff",
+            border: "1px solid #e2e8f0",
+            borderRadius: 12,
+            padding: "14px 20px",
+            marginBottom: 24,
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            flexWrap: "wrap",
+            gap: 12,
+            fontSize: 13,
+            boxShadow: "0 1px 3px rgba(0,0,0,0.03)",
+          }}
+        >
+          <div style={{ display: "flex", alignItems: "center", gap: 8, color: "#334155", flexWrap: "wrap" }}>
+            <span>Store catalog: <strong>{productCount.toLocaleString()} {productCount === 1 ? "product" : "products"}</strong></span>
+            <span style={{ color: "#cbd5e1" }}>&bull;</span>
+            <span>Active plan: <strong>{formatPlanDisplayName(activePlanName)}</strong> ({limit === "Unlimited" ? "Unlimited products" : `up to ${typeof limit === "number" ? limit.toLocaleString() : limit} products`})</span>
+          </div>
+          <div style={{ display: "inline-flex", alignItems: "center", gap: 6, color: "#008060", fontWeight: 700, fontSize: 13 }}>
+            <Sparkles size={15} />
+            <span>Best for your store: <strong>{recommendedPlanObj?.name} Plan</strong> ({recommendedPlanObj?.price === "$0" ? "Free forever" : `${recommendedPlanObj?.price}/month`})</span>
+          </div>
+        </div>
+
         {isLimitExceeded && (
           <div
             style={{
@@ -267,10 +330,11 @@ export default function PricingPage() {
           >
             <AlertCircle size={22} style={{ flexShrink: 0 }} />
             <div>
-              <strong>Plan Limit Exceeded:</strong> Your store currently has <strong>{productCount} products</strong> (note: 1 product with multiple variants counts as 1 product), which exceeds your current <strong>{activePlanName}</strong> limit of <strong>{limit} products</strong>. Sync operations are paused. Please upgrade your plan below to continue.
+              <strong>Plan Limit Exceeded:</strong> Your store currently has <strong>{productCount} products</strong> (note: 1 product with multiple variants counts as 1 product), which exceeds your current <strong>{formatPlanDisplayName(activePlanName)}</strong> limit of <strong>{limit} products</strong>. Sync operations are paused. Please upgrade your plan below to continue.
             </div>
           </div>
         )}
+
         {/* 4 Plan Cards Grid */}
         <div
           style={{
@@ -282,6 +346,7 @@ export default function PricingPage() {
         >
           {plans.map((plan) => {
             const isCurrent = plan.id === currentTier;
+            const isRecommended = plan.id === recommendedTier;
 
             return (
               <div
@@ -290,8 +355,8 @@ export default function PricingPage() {
                   background: "#ffffff",
                   borderRadius: 16,
                   padding: 24,
-                  border: plan.isPopular ? "2px solid #008060" : "1px solid #e2e8f0",
-                  boxShadow: plan.isPopular
+                  border: isRecommended ? "2px solid #008060" : "1px solid #e2e8f0",
+                  boxShadow: isRecommended
                     ? "0 10px 25px -5px rgba(0, 128, 96, 0.12)"
                     : "0 2px 10px rgba(0,0,0,0.03)",
                   position: "relative",
@@ -301,8 +366,8 @@ export default function PricingPage() {
                   transition: "all 0.2s ease",
                 }}
               >
-                {/* Most Popular Badge */}
-                {plan.isPopular && (
+                {/* Recommended Badge */}
+                {isRecommended && (
                   <span
                     style={{
                       position: "absolute",
@@ -314,9 +379,12 @@ export default function PricingPage() {
                       fontWeight: 700,
                       padding: "4px 10px",
                       borderRadius: 12,
+                      display: "inline-flex",
+                      alignItems: "center",
+                      gap: 4,
                     }}
                   >
-                    Most Popular
+                    <Sparkles size={12} /> Best for your store
                   </span>
                 )}
 
@@ -351,17 +419,17 @@ export default function PricingPage() {
                         fontWeight: 700,
                         border: isCurrent
                           ? "none"
-                          : plan.isPopular
+                          : isRecommended
                           ? "none"
                           : "1px solid #cbd5e1",
                         background: isCurrent
                           ? "#f1f5f9"
-                          : plan.isPopular
+                          : isRecommended
                           ? "#008060"
                           : "#ffffff",
                         color: isCurrent
                           ? "#64748b"
-                          : plan.isPopular
+                          : isRecommended
                           ? "#ffffff"
                           : "#0f172a",
                         cursor: isCurrent ? "default" : "pointer",
@@ -457,25 +525,49 @@ export default function PricingPage() {
                 >
                   Features
                 </th>
-                <th style={{ padding: "18px 16px", fontWeight: 700, color: "#0f172a", width: "17.5%" }}>
-                  Free
+                <th
+                  style={{
+                    padding: "18px 16px",
+                    fontWeight: 700,
+                    color: recommendedTier === "free" ? "#008060" : "#0f172a",
+                    background: recommendedTier === "free" ? "#f0fdf4" : undefined,
+                    width: "17.5%",
+                  }}
+                >
+                  Free {recommendedTier === "free" && "★"}
                 </th>
                 <th
                   style={{
                     padding: "18px 16px",
                     fontWeight: 700,
-                    color: "#008060",
-                    background: "#f0fdf4",
+                    color: recommendedTier === "starter" ? "#008060" : "#0f172a",
+                    background: recommendedTier === "starter" ? "#f0fdf4" : undefined,
                     width: "17.5%",
                   }}
                 >
-                  Starter
+                  Starter {recommendedTier === "starter" && "★"}
                 </th>
-                <th style={{ padding: "18px 16px", fontWeight: 700, color: "#0f172a", width: "17.5%" }}>
-                  Pro
+                <th
+                  style={{
+                    padding: "18px 16px",
+                    fontWeight: 700,
+                    color: recommendedTier === "pro" ? "#008060" : "#0f172a",
+                    background: recommendedTier === "pro" ? "#f0fdf4" : undefined,
+                    width: "17.5%",
+                  }}
+                >
+                  Pro {recommendedTier === "pro" && "★"}
                 </th>
-                <th style={{ padding: "18px 16px", fontWeight: 700, color: "#0f172a", width: "17.5%" }}>
-                  Unlimited
+                <th
+                  style={{
+                    padding: "18px 16px",
+                    fontWeight: 700,
+                    color: recommendedTier === "unlimited" ? "#008060" : "#0f172a",
+                    background: recommendedTier === "unlimited" ? "#f0fdf4" : undefined,
+                    width: "17.5%",
+                  }}
+                >
+                  Unlimited {recommendedTier === "unlimited" && "★"}
                 </th>
               </tr>
             </thead>
@@ -497,7 +589,7 @@ export default function PricingPage() {
                   >
                     {row.feature}
                   </td>
-                  <td style={{ padding: "14px 16px", color: "#475569" }}>
+                  <td style={{ padding: "14px 16px", color: "#475569", background: recommendedTier === "free" ? "#f0fdf4" : undefined }}>
                     {typeof row.free === "boolean" ? (
                       row.free ? (
                         <div style={{ width: 18, height: 18, borderRadius: "50%", background: "#008060", color: "#ffffff", display: "inline-flex", alignItems: "center", justifyContent: "center" }}>
@@ -510,7 +602,7 @@ export default function PricingPage() {
                       row.free
                     )}
                   </td>
-                  <td style={{ padding: "14px 16px", color: "#475569", background: "#f0fdf4" }}>
+                  <td style={{ padding: "14px 16px", color: "#475569", background: recommendedTier === "starter" ? "#f0fdf4" : undefined }}>
                     {typeof row.starter === "boolean" ? (
                       row.starter ? (
                         <div style={{ width: 18, height: 18, borderRadius: "50%", background: "#008060", color: "#ffffff", display: "inline-flex", alignItems: "center", justifyContent: "center" }}>
@@ -523,7 +615,7 @@ export default function PricingPage() {
                       row.starter
                     )}
                   </td>
-                  <td style={{ padding: "14px 16px", color: "#475569" }}>
+                  <td style={{ padding: "14px 16px", color: "#475569", background: recommendedTier === "pro" ? "#f0fdf4" : undefined }}>
                     {typeof row.pro === "boolean" ? (
                       row.pro ? (
                         <div style={{ width: 18, height: 18, borderRadius: "50%", background: "#008060", color: "#ffffff", display: "inline-flex", alignItems: "center", justifyContent: "center" }}>
@@ -536,7 +628,7 @@ export default function PricingPage() {
                       row.pro
                     )}
                   </td>
-                  <td style={{ padding: "14px 16px", color: "#475569" }}>
+                  <td style={{ padding: "14px 16px", color: "#475569", background: recommendedTier === "unlimited" ? "#f0fdf4" : undefined }}>
                     {typeof row.unlimited === "boolean" ? (
                       row.unlimited ? (
                         <div style={{ width: 18, height: 18, borderRadius: "50%", background: "#008060", color: "#ffffff", display: "inline-flex", alignItems: "center", justifyContent: "center" }}>

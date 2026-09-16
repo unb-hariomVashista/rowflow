@@ -20,6 +20,7 @@ import { UnauthenticatedHome } from "../components/UnauthenticatedHome";
 import { AuthenticatedHome } from "../components/AuthenticatedHome";
 import { sanitizeErrorMessage } from "../utils/error";
 import { getActivePlanName, getPlanLimit } from "../services/plan.server";
+import { formatPlanDisplayName } from "../constants/plans";
 
 export const loader = async ({ request }: LoaderFunctionArgs) => {
   const { billing, session } = await authenticate.admin(request);
@@ -43,7 +44,7 @@ export const loader = async ({ request }: LoaderFunctionArgs) => {
     isAuthenticated,
     isShopSyncing: Boolean(shop.isSyncing),
     planInfo: {
-      activePlanName,
+      activePlanName: formatPlanDisplayName(activePlanName),
       planLimit: planLimit === Infinity ? "Unlimited" : planLimit,
       productCount,
       isPlanLimitExceeded,
