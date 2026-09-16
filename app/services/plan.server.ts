@@ -20,7 +20,10 @@ export interface PlanInfo {
 export async function getActivePlanName(billingApi: any): Promise<string> {
   if (!billingApi) return "Free";
   try {
-    const billingCheck = await billingApi.check({ isTest: true });
+    const billingCheck = await billingApi.check({
+      plans: [STARTER_PLAN, PRO_PLAN, UNLIMITED_PLAN],
+      isTest: true,
+    });
     if (billingCheck.hasActivePayment && billingCheck.appSubscriptions && billingCheck.appSubscriptions.length > 0) {
       return billingCheck.appSubscriptions[0].name || "Free";
     }
