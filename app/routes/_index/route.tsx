@@ -972,7 +972,7 @@ export default function LandingPage() {
           </div>
           <p style={{ fontSize: 14, color: "#475569", lineHeight: 1.6, margin: "0 0 20px 0" }}>
             <strong>Rowflow - Product Management</strong> adheres strictly to the Google API Services User Data Policy, including the Limited Use requirements.
-            Requested permissions (<code>spreadsheets</code>, <code>drive.file</code>) are used solely to read/write product catalog details into your designated spreadsheet. Rowflow does not access, store, or share customer personal information (PII) or financial transactions.
+            Requested permissions (<code>drive.file</code>) are used solely to create and read/write product catalog details into your designated spreadsheet. Rowflow does not access, store, or share customer personal information (PII) or financial transactions.
           </p>
           <div style={{ display: "flex", gap: 20, flexWrap: "wrap", fontSize: 13 }}>
             <a href="https://unbundl.com/privacy" target="_blank" rel="noreferrer" style={{ color: "#008060", fontWeight: 600, textDecoration: "none" }}>

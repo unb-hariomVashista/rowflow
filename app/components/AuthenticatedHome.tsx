@@ -224,9 +224,12 @@ export function AuthenticatedHome({
       <RecentActivityTable
         logs={syncLogs}
         isPaidPlan={
-          planInfo.activePlanName !== "Free Plan" &&
-          planInfo.activePlanName !== "free" &&
-          planInfo.activePlanName !== "Free"
+          Boolean(
+            planInfo?.activePlanName &&
+            planInfo.activePlanName !== "Free Plan" &&
+            planInfo.activePlanName !== "free" &&
+            planInfo.activePlanName !== "Free"
+          )
         }
       />
     </>

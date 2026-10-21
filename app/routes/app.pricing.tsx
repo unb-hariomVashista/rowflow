@@ -107,7 +107,7 @@ export const action = async ({ request }: ActionFunctionArgs) => {
 
   // Cancel subscription if switching back to Free plan
   const billingCheck = await billing.check({
-    plans: [STARTER_PLAN, PRO_PLAN, UNLIMITED_PLAN, "Starter Plan", "Pro Plan", "Unlimited Plan"],
+    plans: [STARTER_PLAN, PRO_PLAN, UNLIMITED_PLAN],
     isTest: true,
   });
   if (billingCheck.hasActivePayment && billingCheck.appSubscriptions.length > 0) {
